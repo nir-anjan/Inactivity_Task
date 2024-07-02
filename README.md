@@ -16,7 +16,7 @@ Medium Post :
 Install the required libraries using pip:
 
 ```bash
-pip install pyautogui keyboard schedule
+pip install -r requirements.txt
 ```
 
 ## Usage
