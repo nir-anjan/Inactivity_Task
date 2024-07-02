@@ -2,12 +2,12 @@ import random
 import subprocess
 import threading
 import keyboard
-
 import schedule
 from ctypes import Structure, windll, c_uint, sizeof, byref
-
 import pyautogui as gui
 from time import sleep
+from words_list import words
+import open_edge
 
 class LASTINPUTINFO(Structure):
     _fields_ = [("cbSize", c_uint), ("dwTime", c_uint)]
@@ -22,6 +22,7 @@ def get_idle_duration():
 inactivie = False
 activie = True
 
+#checks for inactivity
 def check_inactivity():
     global inactivie 
     global activie 
@@ -37,7 +38,8 @@ def check_inactivity():
 
 terminate = False
 
-def check_esc_press():
+#for pause the task
+def check_esc_press(): 
     global terminate, inactivie
 
     print("Press 'Esc' to exit")
@@ -54,18 +56,12 @@ def check_esc_press():
                 flag = False
                 break
 
-words = [
-    "apple",
-    "banana",
-    "cherry",
-    "date"]
-
 freq=0
 complete = False
 
 def task():
     global freq ,inactivie, terminate, flag, complete
-    n=1
+    n=30
     while True:
         
 
@@ -77,17 +73,14 @@ def task():
 
                 if freq == n+1 :
                     freq = 0
-                    gui.hotkey('win','down')
+                    open_edge.close_edge_browser()
                     complete =True
                     break
 
                 gui.hotkey('win', 'd')
                 sleep(1)
-                edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
-                subprocess.Popen([edge])
-                sleep(1)
-                gui.hotkey('win', 'up')
-                gui.hotkey('esc')
+                open_edge.open_edge_browser()
+                
                 
                 
                 sleep(1)
@@ -123,7 +116,6 @@ def task():
                     freq=freq+1
                     print(freq)
   
-    
 flag =True
     
 def inactiviity_checker():
@@ -145,22 +137,19 @@ def inactiviity_checker():
 
 
 
-# Schedule the check every second
-#schedule.every(1).seconds.do(check_inactivity)
 
-#
 
 if __name__ == "__main__":
     
     inactivity_thread = threading.Thread(target=inactiviity_checker, daemon= True)
     task_thread = threading.Thread(target=task, daemon= True)
-    exit_thread = threading.Thread(target=check_esc_press, daemon= True)
+    #exit_thread = threading.Thread(target=check_esc_press, daemon= True)
 
     
 
     inactivity_thread.start()
     task_thread.start()
-    exit_thread.start()
+    #exit_thread.start()
 
     while True:
         if complete :
