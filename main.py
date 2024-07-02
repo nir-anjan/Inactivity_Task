@@ -139,6 +139,7 @@ if __name__ == "__main__":
     inactivity_thread = threading.Thread(target=inactiviity_checker, daemon= True)
     task_thread = threading.Thread(target=task, daemon= True)
     #this doesn't work  
+    #so if you want to stop the program in between use the gui safety fail 
     #exit_thread = threading.Thread(target=check_esc_press, daemon= True)
 
     inactivity_thread.start()
