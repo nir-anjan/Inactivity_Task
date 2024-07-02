@@ -1,0 +1,5 @@
+keyboard
+schedule
+pyautogui
+ctypes
+threading
