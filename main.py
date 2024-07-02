@@ -1,5 +1,4 @@
 import random
-import subprocess
 import threading
 import keyboard
 import schedule
@@ -58,7 +57,7 @@ def check_esc_press():
 
 freq=0
 complete = False
-
+#the reqired function/task
 def task():
     global freq ,inactivie, terminate, flag, complete
     n=30
@@ -135,17 +134,12 @@ def inactiviity_checker():
                 break
         
 
-
-
-
-
 if __name__ == "__main__":
     
     inactivity_thread = threading.Thread(target=inactiviity_checker, daemon= True)
     task_thread = threading.Thread(target=task, daemon= True)
+    #this doesn't work  
     #exit_thread = threading.Thread(target=check_esc_press, daemon= True)
-
-    
 
     inactivity_thread.start()
     task_thread.start()
