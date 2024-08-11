@@ -26,7 +26,7 @@ def check_inactivity():
     global inactivie 
     global activie 
     idle_time = get_idle_duration()
-    if idle_time >= 5:
+    if idle_time >= 5:        #modify value
         inactivie = True
         activie = False
         print("inactive")
